@@ -1,0 +1,44 @@
+https://m.cafef.vn/du-lieu/Ajax/PageNew/DataHistory/ThongKeDL.ashx?Symbol=VJC&StartDate=11/06/2025&EndDate=12/04/2025&PageIndex=1&PageSize=20
+----url lấy data---
+https://m.cafef.vn/du-lieu/Ajax/PageNew/DataHistory/GDCoDong.ashx?Symbol=VJC&StartDate=&EndDate=&PageIndex=1&PageSize=20
+----url lấy tin nội bộ-----
+https://cafef1.mediacdn.vn/Search/company.json
+----url lấy list tên công ty---
+
+
+
+----------------------------------------------------------------------------------------------------------------------
+get realtime data of index
+https://cafef.vn/du-lieu/Ajax/Mobile/Smart/AjaxChartDataCenter.ashx?floorCode=9&typeChart      (stand for this day)
+
+// floor code list includes:1 HOSE,11 VN30,2 HNX,12 HNX30, 9 UPCOME 
+
+//typeChart ={none for present,7days,1month,3month,6months,1year,3years,all}
+
+-----------------------------------------------------------------------------------------------------------------------
+world indexes
+
+https://m.cafef.vn/du-lieu/ajax/mobile/smart/ajaxchisothegioi.ashx?type=     (for all the world)
+
+https://m.cafef.vn/du-lieu/ajax/mobile/smart/ajaxchisothegioi.ashx?type=1    (for Asia index)
+
+https://m.cafef.vn/du-lieu/ajax/mobile/smart/ajaxchisothegioi.ashx?type=2    (for Europe index)
+
+https://m.cafef.vn/du-lieu/ajax/mobile/smart/ajaxchisothegioi.ashx?type=3    (for America index)
+
+-----------------------------------------------------------------------------------------------------------------------
+get data of money flow
+
+https://cafef.vn/du-lieu/ajax/mobile/smart/ajaxhanghoa.ashx?type=2
+
+
+-----------------------------------------------------------------------------------------------------------------------
+get data of monet rate:
+https://www.customs.gov.vn/bridge?url=/customs/api/GetListUSDRate&language=TIENG_VIET   (usd)
+https://www.customs.gov.vn/bridge?url=/customs/api/GetListOtherRate&language=TIENG_VIET  (other currency)
+
+
+----------------------------------------------------------------------------------------------------------------------
+
+
+
