@@ -15,8 +15,6 @@ dist/
 .ipynb_checkpoints
 *.ipynb
 
-# Data files - Raw Vietnamese news (keep translated version only)
-VIC_all_news.jsonl
 
 # Large data files (use Git LFS if needed)
 *.jsonl.bak
