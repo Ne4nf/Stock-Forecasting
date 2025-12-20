@@ -55,13 +55,11 @@ Xây dựng một hệ thống AI tư vấn đầu tư chứng khoán có khả 
 }
 ```
 
-### Sơ đồ luồng dữ liệu (The Advanced Pipeline)
+## Sơ đồ luồng dữ liệu (The Advanced Pipeline)
 
-Hãy tưởng tượng quy trình đi qua 3 giai đoạn: **Trước khi vào LLM (RDES)** -> **Trong LLM (ICL)** -> **Sau khi ra khỏi LLM (TTRL)**.
+Quy trình đi qua 3 giai đoạn: **Trước khi vào LLM (RDES)** -> **Trong LLM (ICL)** -> **Sau khi ra khỏi LLM (TTRL)**.
 
-#### Chi tiết từng bước trong Flow:
-
-#### 1. Giai đoạn Input & Retrieval (Ứng dụng RDES)
+### 1. Giai đoạn Input & Retrieval (Ứng dụng RDES)
 
 * **Input:** Nhận `JSON_T` (Dữ liệu thị trường hôm nay).
 * **Vấn đề của RAG thường:** Chỉ tìm những ngày trong quá khứ có *chỉ số* giống hôm nay. Nhưng thị trường tài chính rất quái, chỉ số giống nhau nhưng bối cảnh (context) khác nhau thì kết quả ngược nhau.
@@ -76,13 +74,13 @@ Hãy tưởng tượng quy trình đi qua 3 giai đoạn: **Trước khi vào LL
 
 
 
-#### 2. Giai đoạn Reasoning (Ứng dụng ICL)
+### 2. Giai đoạn Reasoning (Ứng dụng ICL)
 
 * **Prompt Construction:** Ghép `JSON_T` + `5 ví dụ từ RDES` + `System Instruction`.
 * **LLM Processing:** Mô hình thực hiện **In-Context Learning**. Nó đọc 5 ví dụ, hiểu logic: *"À, trong quá khứ khi RSI cao thế này mà tin tức xấu thì giá thường sập, nhưng có một ví dụ giá lại hồi phục do dòng tiền ngoại"*.
 * **Chain-of-Thought (CoT):** LLM sinh ra chuỗi suy luận logic trước khi quyết định.
 
-#### 3. Giai đoạn Output & Refinement (Ứng dụng TTRL)
+### 3. Giai đoạn Output & Refinement (Ứng dụng TTRL)
 
 * **Vấn đề:** LLM đôi khi "ảo giác" hoặc quá tự tin. Nó có thể hô "BUY" chỉ vì thấy 3/5 ví dụ là tăng, mà bỏ qua rủi ro vĩ mô.
 * **Giải pháp TTRL (Test-Time Reinforcement Learning / Test-Time Compute):**
@@ -531,4 +529,5 @@ Tạo nên một AI advisor có thể:
 **Project**: Stock Investment Advisory System  
 **Date**: December 2025  
 **Status**: In Development
+
 
