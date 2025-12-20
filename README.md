@@ -55,6 +55,49 @@ Xây dựng một hệ thống AI tư vấn đầu tư chứng khoán có khả 
 }
 ```
 
+### Sơ đồ luồng dữ liệu (The Advanced Pipeline)
+
+Hãy tưởng tượng quy trình đi qua 3 giai đoạn: **Trước khi vào LLM (RDES)** -> **Trong LLM (ICL)** -> **Sau khi ra khỏi LLM (TTRL)**.
+
+#### Chi tiết từng bước trong Flow:
+
+#### 1. Giai đoạn Input & Retrieval (Ứng dụng RDES)
+
+* **Input:** Nhận `JSON_T` (Dữ liệu thị trường hôm nay).
+* **Vấn đề của RAG thường:** Chỉ tìm những ngày trong quá khứ có *chỉ số* giống hôm nay. Nhưng thị trường tài chính rất quái, chỉ số giống nhau nhưng bối cảnh (context) khác nhau thì kết quả ngược nhau.
+* **Giải pháp RDES (Relevance-Diversity Enhanced Selection):**
+* Thay vì dùng `Cosine Similarity` đơn thuần, bạn dùng một **RDES Agent** (đã được train bằng RL).
+* Agent này sẽ chọn ra 5 ví dụ lịch sử () sao cho:
+1. **Relevance:** Có cấu trúc thị trường tương đồng.
+2. **Diversity:** Bao gồm cả trường hợp thị trường Tăng và Giảm trong bối cảnh đó (để LLM có cái nhìn đa chiều, tránh bias).
+
+
+* **Kết quả:** Một bộ Prompt cực "chất", chứa những bài học xương máu nhất từ quá khứ chứ không chỉ là dữ liệu thô.
+
+
+
+#### 2. Giai đoạn Reasoning (Ứng dụng ICL)
+
+* **Prompt Construction:** Ghép `JSON_T` + `5 ví dụ từ RDES` + `System Instruction`.
+* **LLM Processing:** Mô hình thực hiện **In-Context Learning**. Nó đọc 5 ví dụ, hiểu logic: *"À, trong quá khứ khi RSI cao thế này mà tin tức xấu thì giá thường sập, nhưng có một ví dụ giá lại hồi phục do dòng tiền ngoại"*.
+* **Chain-of-Thought (CoT):** LLM sinh ra chuỗi suy luận logic trước khi quyết định.
+
+#### 3. Giai đoạn Output & Refinement (Ứng dụng TTRL)
+
+* **Vấn đề:** LLM đôi khi "ảo giác" hoặc quá tự tin. Nó có thể hô "BUY" chỉ vì thấy 3/5 ví dụ là tăng, mà bỏ qua rủi ro vĩ mô.
+* **Giải pháp TTRL (Test-Time Reinforcement Learning / Test-Time Compute):**
+* Thay vì lấy ngay kết quả đầu tiên, bạn yêu cầu LLM sinh ra **N kịch bản** (ví dụ: 1 kịch bản Bullish, 1 Bearish, 1 Neutral).
+* Sử dụng một **Value Model** (Mô hình định giá - có thể là một LLM nhỏ hơn hoặc một mô hình phân loại rủi ro) để chấm điểm từng kịch bản dựa trên độ an toàn và logic.
+* **Cơ chế:**
+* LLM tự hỏi: *"Nếu mình khuyên BUY, rủi ro sai là bao nhiêu dựa trên dữ liệu này?"*
+* Nó thực hiện các bước update trạng thái nội bộ (hoặc chọn lại câu trả lời) để tối đa hóa "Phần thưởng" (Reward - ở đây là độ chính xác/an toàn).
+
+
+
+
+* **Final Output:** Chọn ra quyết định có điểm số an toàn cao nhất -> Trả về JSON {Action, Reason}.
+
+
 ---
 
 ## 🏗️ KIẾN TRÚC HỆ THỐNG (System Architecture)
@@ -488,3 +531,4 @@ Tạo nên một AI advisor có thể:
 **Project**: Stock Investment Advisory System  
 **Date**: December 2025  
 **Status**: In Development
+
