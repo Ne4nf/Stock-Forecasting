@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+dist/
+*.egg-info/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# Data files - Raw Vietnamese news (keep translated version only)
+VIC_all_news.jsonl
+
+# Large data files (use Git LFS if needed)
+*.jsonl.bak
+*.csv
+*.xlsx
+*.parquet
+
+# API keys and sensitive info
+api_url.txt
+*.env
+.env.local
+config.ini
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+*.log
+*.cache
